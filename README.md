@@ -40,7 +40,7 @@ Your React app must:
 
 ## Planning
 
-Step one of the project was to find a good quality public API and to come up with an idea of how we might want to use the data in a React app. Liv and I compared the results of the research we had done independently before being paired, and decided to build a two-page quiz app using the Open Trivia API. It would have a homepage with an intro which credited the API, plus some basic instructions, and a button linking through to the quiz page (also linked via a navbar). A button on the quiz page would fetch the data, and 10 multiple-choice questions would display on the page. The button at the bottom would reveal the user’s score. Our initial wireframe is included here:
+Step one of the project was to find a good quality public API and to come up with an idea of how we might want to use the data in a React app. Liv and I compared the results of the research we had done independently before being paired, and decided to build a two-page quiz app using the Open Trivia API. It would have a home page with an intro which credited the API, plus some basic instructions, and a button linking through to the quiz page (also linked via a navbar). A button on the quiz page would fetch the data, and 10 multiple-choice questions would display on the page. The button at the bottom would reveal the user’s score. Our initial wireframe is included here:
 
 ![Quiz wireframe](./readme-assets/quiz-wireframe.png)
 
@@ -52,9 +52,9 @@ We chose to begin by pair-programming and taking turns as driver/navigator. We a
 
 In fact, Liv and I found we very much enjoyed working together, were learning a lot from the process, and were making good progress. As a result, we didn’t work independently of one another until the final few hours of the project when the time pressure was greater and there was some much-needed styling still to be done! (Here, we agreed on a basic look and then took responsibility for a page each, reconvening afterwards to agree on any tweaks.) 
 
-In terms of the build, on Day One we began with an initial commit of the starter code. Then to get our basic structure in place, we consulted our wireframe and created components for the navbar, and the home and quiz pages. We set our parent component up with the appropriate imports, a router, routes to the home and quiz pages, and also linked to them from the navbar. We made components for the About and Instructions sections, and imported them to use in the Home component.
+In terms of the build, on Day One we began with an initial commit of the starter code. Then to get our basic structure in place, we consulted our wireframe and created components for the navbar, and the home and quiz pages. We set our parent component up with the appropriate imports, a router, routes to the home and quiz pages, and also linked to them from the navbar. We made components for the About and Instructions sections, and imported them to use in the `Home` component.
 
-On Day Two, our first (and only) full day, we made dropdowns for our category and difficulty level “`select`” elements (not strictly `select` elements as we were using Bulma, whose dropdowns use anchor tags):
+On Day Two, our first (and only) full day, we made dropdowns for our category and difficulty level “select” elements (not strictly `<select>` elements as we were using Bulma, whose dropdowns use anchor tags):
 
 ```
 <div className="dropdown-menu" id="dropdown-menu" role="menu">
@@ -70,7 +70,7 @@ We made a component for the “Take me to the Quiz” button, and were unsure in
 
 Next, we created a `GenerateQuizButton` component to fetch the data from the API, map through it, and pass the relevant items (questions, correct answers and incorrect answers) as props to a `ShowQuestions` component. This latter component would (we believed!) render the questions on the page. 
 
-However, the questions were not appearing on the quiz page as expected, and after discussing the issue with a more experienced engineer, we realised there was something amiss with where our state was living. We got rid of the separate `GenerateQuizButton` component and moved its state and `fetch` function up to the `QuizPage` component. We mapped the data and passed the props down to `ShowQuestions` from here instead. 
+However, the questions were not appearing on the quiz page as expected, and after discussing the issue with a more experienced engineer, we realised there was something amiss with where our state was living. We got rid of the separate `GenerateQuizButton` component and moved its state and fetch function up to the `QuizPage` component. We mapped the data and passed the props down to `ShowQuestions` from here instead. 
 
 In the `ShowQuestions` component we then combined and “shuffled” our correct and incorrect answers together (see “Wins” section below). We created some state to track the user’s selected answer, a function to check if the string they’d selected was equal to the value of the correct answer prop —
 
@@ -160,7 +160,7 @@ I am particularly pleased with the visual design of our finished project, especi
 
 I am also very happy with how the pair-programming went. We communicated effectively, listened to each other, compromised quickly and easily, helped each other when we were struggling to grasp something, and most importantly, really enjoyed working together.
 
-In terms of problem solving, one of our particular wins was around the correct vs incorrect answers logic. We realised that having added the correct answer to the array of incorrect answers, unless we mixed them up, a user would be able to figure out that the last of the four answers was always the correct one. We did some research into complicated ways of shuffling arrays, but it then occurred to me that it would be simpler just to use a method we had already seen: `sort`. If the answers (strings) were reordered alphabetically, then they were still being rearranged, if not randomly shuffled – but that was all we needed to prevent the user knowing which was the correct one! We sought guidance on creating the array of all four answers using the `spread` syntax, after figuring out (via a bit of trial and error and then some googling!) that the `push` method was returning the array’s length, as opposed to a new array!
+In terms of problem solving, one of our particular wins was around the correct vs incorrect answers logic. We realised that having added the correct answer to the array of incorrect answers, unless we mixed them up, a user would be able to figure out that the last of the four answers was always the correct one. We did some research into complicated ways of shuffling arrays, but it then occurred to me that it would be simpler just to use a method we had already seen: `sort`. If the answers (strings) were reordered alphabetically, then they were still being rearranged, albeit not randomly shuffled – but that was all we needed to prevent the user knowing which was the correct one! We sought guidance on creating the array of all four answers using the spread syntax, after figuring out (via a bit of trial and error and then some googling!) that the `push` method was returning the array’s length, as opposed to a new array!
 
 ```
 const allAnswers = [...incorrect, correct];
